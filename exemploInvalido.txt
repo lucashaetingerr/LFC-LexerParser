@@ -1,0 +1,15 @@
+MAPA_API {
+
+  // Declaração das APIs envolvidas
+  API origem: "https://api.origem.com/v1";
+  API destino: "https://api.destino.net/v2";
+
+  // De-para de recursos (endpoints)
+  RECURSO "/usuarios" DE origem PARA "/clientes" EM destino {
+    // De-para de métodos HTTP (opcional, padrão é o mesmo)
+    METODO GET PARA GET;
+    METODO POST PARA POST;
+
+    // De-para de parâmetros de consulta (query parameters)
+    PARAMETRO "id_usuario" DE origem PARA "cliente_id" EM destino;
+    PARAM

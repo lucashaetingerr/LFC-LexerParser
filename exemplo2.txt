@@ -1,0 +1,20 @@
+MAPA_API {
+  API origem_sistema_legado: "http://legado.api/dados";
+  API destino_novo_sistema: "https://novo.api/v1/entidade";
+
+  RECURSO "/usuarios" DE origem_sistema_legado PARA "/users" EM destino_novo_sistema {
+    METODO GET PARA GET;
+    METODO POST PARA POST;
+
+    CAMPO "ID" DE origem_sistema_legado PARA "identifier" EM destino_novo_sistema;
+    CAMPO "NomeUsuario" DE origem_sistema_legado PARA "username" EM destino_novo_sistema;
+    CAMPO "EmailPrincipal" DE origem_sistema_legado PARA "email" EM destino_novo_sistema;
+    CAMPO "StatusConta" DE origem_sistema_legado PARA "accountStatus" EM destino_novo_sistema;
+
+    TRANSFORMAR valor origem_sistema_legado.StatusConta == "1" PARA destino_novo_sistema.accountStatus = "ACTIVE";
+    TRANSFORMAR valor origem_sistema_legado.StatusConta == "0" PARA destino_novo_sistema.accountStatus = "INACTIVE";
+    TRANSFORMAR valor origem_sistema_legado.StatusConta == "2" PARA destino_novo_sistema.accountStatus = "SUSPENDED";
+  }
+
+  CABECALHO "X-Tenant-ID" DE origem_sistema_legado PARA "X-Organization-ID" EM destino_novo_sistema;
+}

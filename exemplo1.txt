@@ -1,0 +1,51 @@
+MAPA_API {
+
+  // Declaração das APIs envolvidas
+  API origem: "https://api.origem.com/v1";
+  API destino: "https://api.destino.net/v2";
+
+  // De-para de recursos (endpoints)
+  RECURSO "/usuarios" DE origem PARA "/clientes" EM destino {
+    // De-para de métodos HTTP (opcional, padrão é o mesmo)
+    METODO GET PARA GET;
+    METODO POST PARA POST;
+
+    // De-para de parâmetros de consulta (query parameters)
+    PARAMETRO "id_usuario" DE origem PARA "cliente_id" EM destino;
+    PARAMETRO "nome" DE origem PARA "nome_completo" EM destino;
+    PARAMETRO "email" DE origem; // Mantém o mesmo nome no destino
+
+    // De-para de campos no corpo da requisição/resposta (JSON)
+    CAMPO "user_id" DE origem PARA "id_cliente" EM destino;
+    CAMPO "first_name" DE origem PARA "primeiro_nome" EM destino;
+    CAMPO "last_name" DE origem PARA "sobrenome" EM destino;
+    CAMPO "email_address" DE origem PARA "email" EM destino;
+    CAMPO "creation_date" DE origem PARA "data_criacao" EM destino FORMATO "yyyy-MM-dd HH:mm:ss";
+
+    // Transformação de valores (opcional)
+    TRANSFORMAR valor origem.status == "ativo" PARA destino.status = "active";
+    TRANSFORMAR valor origem.status == "inativo" PARA destino.status = "inactive";
+  }
+
+  RECURSO "/produtos/{id}" DE origem PARA "/itens/{item_id}" EM destino {
+    METODO GET PARA GET;
+
+    PARAMETRO "id" DE origem PARA "item_id" EM destino; // sera mapeado para 'id' no JSON se for a forma curta, ou item_id se for a longa
+
+    CAMPO "product_name" DE origem PARA "nome_produto" EM destino;
+    CAMPO "price_usd" DE origem PARA "preco_brl" EM destino {
+      // Lógica de conversão (pode ser uma função externa)
+      CONVERTER COM "converter_usd_para_brl";
+    };
+  }
+
+  // De-para global de cabeçalhos (headers)
+  CABECALHO "X-API-Key-Origem" DE origem PARA "X-Auth-Token-Destino" EM destino;
+  CABECALHO "Content-Type" COM "application/json"; // Valor fixo no destino
+
+  // Definição de funções de conversão (podem ser implementadas em Java)
+  FUNCAO converter_usd_para_brl(valor) {
+    // Lógica para converter USD para BRL
+    // Retorna o valor convertido
+  }
+}
