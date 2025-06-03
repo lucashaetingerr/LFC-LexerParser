@@ -1,16 +1,7 @@
 import tkinter as tk
-from tkinter import filedialog, scrolledtext, messagebox, font as tkfont
+from tkinter import filedialog,scrolledtext,messagebox, font as tkfont
 import json
 import time
-
-
-try:
-    from parser import parse_dsl_from_string
-except ImportError:
-    messagebox.showerror("Erro de Importação Crítico",
-                         "O arquivo 'parser.py' não foi encontrado ou está com problemas.\n"
-                         "Verifique se ele está no mesmo diretório que este script.")
-    exit()
 
 
 #dimensoes e componentes da interface tkinter
@@ -36,6 +27,15 @@ COR_TERMINAL_TEXTO_CLARO="#dcdcdc"
 COR_TERMINAL_TEXTO_ERRO="#ff7b7b"
 FONTE_FAMILIA_PADRAO="Segoe UI"
 FONTE_FAMILIA_MONOESPACADA="Consolas"
+
+
+try:
+    from parser import parse_dsl_from_string
+except ImportError:
+    messagebox.showerror("Erro de Importação Crítico",#tab titulo
+                         "O arquivo 'parser.py' não foi encontrado ou está com problemas.\n"
+                         "Verifique se ele está no mesmo diretório que este script.")
+    exit()
 
 
 
@@ -81,31 +81,30 @@ class AnalisadorDSLAppTk:
                  ).pack(pady=(0, 30))
 
 
-        frame_label_instrucao_arquivo = tk.Frame(frame_area_principal, bg=COR_FUNDO_WIDGETS)
-        frame_label_instrucao_arquivo.pack(pady=(0,5)) # pack() centraliza por padrao no frame_area_principal
+        frame_label_instrucao_arquivo=tk.Frame(frame_area_principal, bg=COR_FUNDO_WIDGETS)
+        frame_label_instrucao_arquivo.pack(pady=(0,5))#pack() centraliza por padrao no frame_area_principal
 
 
-        tk.Label(frame_label_instrucao_arquivo, text="Selecione um arquivo de código DSL válido no formato `.txt`",
-                 font=self.fonte_label_ui,bg=COR_FUNDO_WIDGETS,fg=COR_TEXTO_SECUNDARIO
-                 ).pack() #p/ label vai se ajustar ao texto
+        tk.Label(frame_label_instrucao_arquivo, text="Selecione um arquivo no formato esperado e com a extenção `.txt`",
+                 font=self.fonte_label_ui,bg=COR_FUNDO_WIDGETS,fg=COR_TEXTO_SECUNDARIO).pack()#p/ label vai se ajustar ao texto
 
 
         frame_botao_selecao_container=tk.Frame(frame_area_principal, bg=COR_FUNDO_WIDGETS)
         frame_botao_selecao_container.pack(pady=(5,10))
 
         self.widget_botao_procurar=tk.Button(frame_botao_selecao_container, text="Procurar Arquivo...",
-                                             font=self.fonte_padrao_ui, command=self.evento_selecionar_arquivo,
-                                             relief=tk.GROOVE, bd=1, width=25, # Largura ajustada
-                                             bg=COR_SECUNDARIA_BOTAO, fg=COR_TEXTO_BOTAO_CLARO,
+                                             font=self.fonte_padrao_ui,command=self.evento_selecionar_arquivo,
+                                             relief=tk.GROOVE, bd=1,width=25, # Largura ajustada
+                                             bg=COR_SECUNDARIA_BOTAO,fg=COR_TEXTO_BOTAO_CLARO,
                                              activebackground=COR_SECUNDARIA_BOTAO_HOVER, activeforeground=COR_TEXTO_BOTAO_CLARO)
         self.widget_botao_procurar.pack()
 
 
-        self.widget_label_status_arquivo=tk.Label(frame_area_principal, text="Nenhum arquivo selecionado.",
-                                                  font=self.fonte_padrao_ui, bg=COR_FUNDO_WIDGETS,
+        self.widget_label_status_arquivo=tk.Label(frame_area_principal,text="Nenhum arquivo selecionado.",
+                                                  font=self.fonte_padrao_ui,bg=COR_FUNDO_WIDGETS,
                                                   fg=COR_TEXTO_PLACEHOLDER
-                                                  # justify=tk.CENTER nao eh necessario se o proprio Label
-                                                  # nao preenche X e o frame pai o centraliza
+                                                  #justify=tk.CENTER nao eh necessario se o proprio Label
+                                                  #nao preenche X e o frame pai o centraliza
                                                   )
         self.widget_label_status_arquivo.pack(pady=(0,20))
 
@@ -130,28 +129,24 @@ class AnalisadorDSLAppTk:
                                           activebackground=COR_SECUNDARIA_BOTAO_HOVER, activeforeground=COR_TEXTO_BOTAO_CLARO)
         self.widget_botao_limpar.pack(side=tk.LEFT,padx=10)
 
-
-        self.widget_frame_resultado_analise = tk.Frame(frame_area_principal, bg=COR_FUNDO_WIDGETS)
-
-
+        self.widget_frame_resultado_analise=tk.Frame(frame_area_principal,bg=COR_FUNDO_WIDGETS)
 
         tk.Label(self.widget_frame_resultado_analise, text="Resultado da Análise:",
-                 font=self.fonte_label_ui, bg=COR_FUNDO_WIDGETS, fg=COR_TEXTO_SECUNDARIO
-                 ).pack(anchor="w",pady=(20, 5))
+                 font=self.fonte_label_ui, bg=COR_FUNDO_WIDGETS,fg=COR_TEXTO_SECUNDARIO).pack(anchor="w",pady=(20, 5))
 
 
 
-        self.widget_area_terminal = scrolledtext.ScrolledText(self.widget_frame_resultado_analise, wrap=tk.WORD,
-                                                            font=self.fonte_terminal_ui, height=15, # altura em linhas de texto
-                                                            bg=COR_TERMINAL_FUNDO_ESCURO, fg=COR_TERMINAL_TEXTO_CLARO,
+        self.widget_area_terminal=scrolledtext.ScrolledText(self.widget_frame_resultado_analise, wrap=tk.WORD,
+                                                            font=self.fonte_terminal_ui, height=15,
+                                                            bg=COR_TERMINAL_FUNDO_ESCURO,fg=COR_TERMINAL_TEXTO_CLARO,
                                                             relief=tk.SUNKEN,bd=1,
                                                             insertbackground=COR_TERMINAL_TEXTO_CLARO)
-        self.widget_area_terminal.pack(expand=True, fill=tk.BOTH, pady=(0,10))
-        self.widget_area_terminal.tag_config("erro_de_sintaxe", foreground=COR_TERMINAL_TEXTO_ERRO, font=(FONTE_FAMILIA_MONOESPACADA, self.fonte_terminal_ui.cget("size"), "bold"))
+        self.widget_area_terminal.pack(expand=True,fill=tk.BOTH, pady=(0,10))
+        self.widget_area_terminal.tag_config("erro_de_sintaxe",foreground=COR_TERMINAL_TEXTO_ERRO,font=(FONTE_FAMILIA_MONOESPACADA,self.fonte_terminal_ui.cget("size"), "bold"))
 
 
-        self.widget_botao_copiar = tk.Button(self.widget_frame_resultado_analise, text="📋 Copiar Resultado",
-                                           font=self.fonte_padrao_ui, command=self.evento_copiar_terminal,
+        self.widget_botao_copiar =tk.Button(self.widget_frame_resultado_analise, text="📋 Copiar Resultado",
+                                           font=self.fonte_padrao_ui,
                                            state=tk.DISABLED, relief=tk.GROOVE, bd=1,
                                            bg=COR_BOTAO_COPIAR_FUNDO, fg=COR_BOTAO_COPIAR_TEXTO,
                                            activebackground="#d3d3d3")
@@ -163,7 +158,7 @@ class AnalisadorDSLAppTk:
     def _gerenciar_visibilidade_resultado(self, mostrar):
         if mostrar:
             if not self.widget_frame_resultado_analise.winfo_ismapped():
-                self.widget_frame_resultado_analise.pack(expand=True, fill=tk.BOTH, pady=(10,0), padx=5)
+                self.widget_frame_resultado_analise.pack(expand=True, fill=tk.BOTH,pady=(10,0),padx=5)
         else:
             if self.widget_frame_resultado_analise.winfo_ismapped():
                 self.widget_frame_resultado_analise.pack_forget()
@@ -175,7 +170,7 @@ class AnalisadorDSLAppTk:
 
 
     def evento_selecionar_arquivo(self):
-        caminho_arquivo_dsl = filedialog.askopenfilename(
+        caminho_arquivo_dsl= filedialog.askopenfilename(
             title="Selecionar Arquivo",
             filetypes=(("Arquivos de Texto", "*.txt"),("Todos os Arquivos", "*.*"))
         )
@@ -202,17 +197,17 @@ class AnalisadorDSLAppTk:
 
     def evento_analisar_dsl(self):
         if not self.conteudo_arquivo_lido:
-            messagebox.showwarning("Ação Necessária", "Por favor, selecione um arquivo com código DSL válido antes de prosseguir.")
+            messagebox.showwarning("Ação Necessária", "Por favor, selecione um arquivo com código válido antes de prosseguir.")
             return
 
 
         self._gerenciar_visibilidade_resultado(mostrar=True)
         self.widget_area_terminal.config(state=tk.NORMAL)
-        self.widget_area_terminal.delete("1.0", tk.END)
-        self.widget_area_terminal.insert("1.0", f"Analisando o arquivo '{self.nome_arquivo_atual_dsl}'...\nPor favor, aguarde um momento.\n\n")
+        self.widget_area_terminal.delete("1.0",tk.END)
+        self.widget_area_terminal.insert("1.0",f"Analisando o arquivo '{self.nome_arquivo_atual_dsl}'...\nPor favor, aguarde um momento.\n\n")
         self.widget_area_terminal.config(state=tk.DISABLED)
         self.widget_botao_copiar.config(state=tk.DISABLED)
-        self.janela_mestra.update_idletasks() #p/ atualizar a interface
+        self.janela_mestra.update_idletasks()#p/ atualizar a interface
         time.sleep(0.3)
         
 
@@ -271,35 +266,6 @@ class AnalisadorDSLAppTk:
         self.widget_botao_analisar.config(state=tk.DISABLED)
         self._gerenciar_visibilidade_resultado(mostrar=False)
 
-
-    def evento_copiar_terminal(self):
-        conteudo_para_copiar=self.widget_area_terminal.get("1.0",tk.END).strip()
-        if conteudo_para_copiar:
-            try:
-                self.janela_mestra.clipboard_clear()
-                self.janela_mestra.clipboard_append(conteudo_para_copiar)
-                
-
-
-                texto_original_copiar=self.widget_botao_copiar.cget("text")
-                cor_bg_original_copiar=self.widget_botao_copiar.cget("background")
-                cor_fg_original_copiar=self.widget_botao_copiar.cget("foreground")
-
-
-                self.widget_botao_copiar.config(text="✔️ Copiado!",state=tk.DISABLED,
-                                                bg=COR_SUCESSO_TEXTO_STATUS, fg=COR_TEXTO_BOTAO_CLARO)
-                
-
-                
-                self.janela_mestra.after(2000, lambda: self.widget_botao_copiar.config(
-                    text=texto_original_copiar, state=tk.NORMAL,
-                    bg=cor_bg_original_copiar, fg=cor_fg_original_copiar
-                ))
-            except tk.TclError:
-                messagebox.showwarning("Falha ao Copiar",
-                                     "Não foi possível acessar a área de transferência do sistema.")
-        else:
-            messagebox.showinfo("Nada para Copiar", "O terminal de saída está vazio.")
 
 if __name__ == "__main__":
     root_window = tk.Tk()

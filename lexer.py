@@ -1,14 +1,6 @@
 import ply.lex as lex
 
 
-tokens=(
-    'MAPA_API', 'API', 'RECURSO', 'DE', 'PARA', 'EM', 'METODO',
-    'PARAMETRO', 'CAMPO', 'FORMATO', 'TRANSFORMAR', 'VALOR',
-    'CONVERTER', 'COM', 'CABECALHO', 'FUNCAO',
-    'LBRACE', 'RBRACE', 'SEMICOLON', 'COLON', 'LPAREN', 'RPAREN', 'COMMA', 'DOT',
-    'IDENTIFIER', 'STRING',
-    'OPERATOR_EQ', 'OPERATOR_ASSIGN',
-)
 
 
 #palavras reservadas e seus tokens correspondentes
@@ -30,6 +22,14 @@ palavras_reservadas={
     'CABECALHO':'CABECALHO',
     'FUNCAO':'FUNCAO',
 }
+tokens=(
+    'MAPA_API','API','RECURSO','DE','PARA','EM','METODO',
+    'PARAMETRO','CAMPO','FORMATO','TRANSFORMAR','VALOR',
+    'CONVERTER','COM','CABECALHO','FUNCAO',
+    'LBRACE','RBRACE','SEMICOLON','COLON','LPAREN','RPAREN','COMMA','DOT',
+    'IDENTIFIER','STRING',
+    'OPERATOR_EQ','OPERATOR_ASSIGN',
+)
 
 #expressoes regulares p/ tokens
 t_LBRACE=r'\{'
@@ -47,7 +47,7 @@ t_OPERATOR_ASSIGN=r'='
 #regra para tratativas de strings (conteudo entre aspas duplas)
 def t_STRING(t):
     r'"[^"]*"'
-    t.value=t.value[1:-1]#remove as aspas delimitadoras
+    t.value=t.value[1:-1]#garante remoçao de aspas delimitadoras
     return t
 
 
@@ -73,7 +73,7 @@ def t_newline(t):
 
 
 #string contendo caracteres a serem ignorados (espaços e tabs)
-t_ignore = ' \t'
+t_ignore=' \t'
 
 
 #funcao para tratamento de erro lexico (caracteres invalidos)

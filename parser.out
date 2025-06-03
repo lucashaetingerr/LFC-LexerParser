@@ -1,0 +1,1282 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> api_map_definition
+Rule 1     api_map_definition -> MAPA_API LBRACE optional_declarations RBRACE
+Rule 2     optional_declarations -> declarations
+Rule 3     optional_declarations -> empty_rule
+Rule 4     declarations -> declarations declaration
+Rule 5     declarations -> declaration
+Rule 6     declaration -> api_declaration
+Rule 7     declaration -> resource_definition
+Rule 8     declaration -> header_definition
+Rule 9     declaration -> function_definition
+Rule 10    api_declaration -> API IDENTIFIER COLON STRING SEMICOLON
+Rule 11    resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+Rule 12    optional_resource_body -> resource_body
+Rule 13    optional_resource_body -> empty_rule
+Rule 14    resource_body -> resource_body resource_statement
+Rule 15    resource_body -> resource_statement
+Rule 16    resource_statement -> method_definition
+Rule 17    resource_statement -> parameter_definition
+Rule 18    resource_statement -> field_definition
+Rule 19    resource_statement -> transformation_definition
+Rule 20    method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON
+Rule 21    parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+Rule 22    parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON
+Rule 23    optional_parameter_converter -> LBRACE CONVERTER COM STRING SEMICOLON RBRACE
+Rule 24    optional_parameter_converter -> empty_rule
+Rule 25    field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+Rule 26    optional_format -> FORMATO STRING
+Rule 27    optional_format -> empty_rule
+Rule 28    optional_converter -> LBRACE CONVERTER COM STRING SEMICOLON RBRACE
+Rule 29    optional_converter -> empty_rule
+Rule 30    transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON
+Rule 31    field_path_segments -> IDENTIFIER
+Rule 32    field_path_segments -> field_path_segments DOT IDENTIFIER
+Rule 33    source_condition -> IDENTIFIER DOT field_path_segments OPERATOR_EQ STRING
+Rule 34    target_assignment -> IDENTIFIER DOT field_path_segments OPERATOR_ASSIGN STRING
+Rule 35    header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON
+Rule 36    header_definition -> CABECALHO STRING COM STRING SEMICOLON
+Rule 37    function_param_identifier -> IDENTIFIER
+Rule 38    function_param_identifier -> VALOR
+Rule 39    function_param_list -> function_param_list COMMA function_param_identifier
+Rule 40    function_param_list -> function_param_identifier
+Rule 41    optional_function_params -> function_param_list
+Rule 42    optional_function_params -> empty_rule
+Rule 43    function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE
+Rule 44    function_body_placeholder -> empty_rule
+Rule 45    empty_rule -> <empty>
+
+Terminals, with rules where they appear
+
+API                  : 10
+CABECALHO            : 35 36
+CAMPO                : 25
+COLON                : 10
+COM                  : 23 28 36
+COMMA                : 39
+CONVERTER            : 23 28
+DE                   : 11 21 22 25 35
+DOT                  : 32 33 34
+EM                   : 11 21 25 35
+FORMATO              : 26
+FUNCAO               : 43
+IDENTIFIER           : 10 11 11 20 20 21 21 22 25 25 31 32 33 34 35 35 37 43
+LBRACE               : 1 11 23 28 43
+LPAREN               : 43
+MAPA_API             : 1
+METODO               : 20
+OPERATOR_ASSIGN      : 34
+OPERATOR_EQ          : 33
+PARA                 : 11 20 21 25 30 35
+PARAMETRO            : 21 22
+RBRACE               : 1 11 23 28 43
+RECURSO              : 11
+RPAREN               : 43
+SEMICOLON            : 10 20 21 22 23 25 28 30 35 36
+STRING               : 10 11 11 21 21 22 23 25 25 26 28 33 34 35 35 36 36
+TRANSFORMAR          : 30
+VALOR                : 30 38
+error                : 
+
+Nonterminals, with rules where they appear
+
+api_declaration      : 6
+api_map_definition   : 0
+declaration          : 4 5
+declarations         : 2 4
+empty_rule           : 3 13 24 27 29 42 44
+field_definition     : 18
+field_path_segments  : 32 33 34
+function_body_placeholder : 43
+function_definition  : 9
+function_param_identifier : 39 40
+function_param_list  : 39 41
+header_definition    : 8
+method_definition    : 16
+optional_converter   : 25
+optional_declarations : 1
+optional_format      : 25
+optional_function_params : 43
+optional_parameter_converter : 21 22
+optional_resource_body : 11
+parameter_definition : 17
+resource_body        : 12 14
+resource_definition  : 7
+resource_statement   : 14 15
+source_condition     : 30
+target_assignment    : 30
+transformation_definition : 19
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . api_map_definition
+    (1) api_map_definition -> . MAPA_API LBRACE optional_declarations RBRACE
+
+    MAPA_API        shift and go to state 2
+
+    api_map_definition             shift and go to state 1
+
+state 1
+
+    (0) S' -> api_map_definition .
+
+
+
+state 2
+
+    (1) api_map_definition -> MAPA_API . LBRACE optional_declarations RBRACE
+
+    LBRACE          shift and go to state 3
+
+
+state 3
+
+    (1) api_map_definition -> MAPA_API LBRACE . optional_declarations RBRACE
+    (2) optional_declarations -> . declarations
+    (3) optional_declarations -> . empty_rule
+    (4) declarations -> . declarations declaration
+    (5) declarations -> . declaration
+    (45) empty_rule -> .
+    (6) declaration -> . api_declaration
+    (7) declaration -> . resource_definition
+    (8) declaration -> . header_definition
+    (9) declaration -> . function_definition
+    (10) api_declaration -> . API IDENTIFIER COLON STRING SEMICOLON
+    (11) resource_definition -> . RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+    (35) header_definition -> . CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON
+    (36) header_definition -> . CABECALHO STRING COM STRING SEMICOLON
+    (43) function_definition -> . FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE
+
+    RBRACE          reduce using rule 45 (empty_rule -> .)
+    API             shift and go to state 12
+    RECURSO         shift and go to state 13
+    CABECALHO       shift and go to state 14
+    FUNCAO          shift and go to state 15
+
+    optional_declarations          shift and go to state 4
+    declarations                   shift and go to state 5
+    empty_rule                     shift and go to state 6
+    declaration                    shift and go to state 7
+    api_declaration                shift and go to state 8
+    resource_definition            shift and go to state 9
+    header_definition              shift and go to state 10
+    function_definition            shift and go to state 11
+
+state 4
+
+    (1) api_map_definition -> MAPA_API LBRACE optional_declarations . RBRACE
+
+    RBRACE          shift and go to state 16
+
+
+state 5
+
+    (2) optional_declarations -> declarations .
+    (4) declarations -> declarations . declaration
+    (6) declaration -> . api_declaration
+    (7) declaration -> . resource_definition
+    (8) declaration -> . header_definition
+    (9) declaration -> . function_definition
+    (10) api_declaration -> . API IDENTIFIER COLON STRING SEMICOLON
+    (11) resource_definition -> . RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+    (35) header_definition -> . CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON
+    (36) header_definition -> . CABECALHO STRING COM STRING SEMICOLON
+    (43) function_definition -> . FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE
+
+    RBRACE          reduce using rule 2 (optional_declarations -> declarations .)
+    API             shift and go to state 12
+    RECURSO         shift and go to state 13
+    CABECALHO       shift and go to state 14
+    FUNCAO          shift and go to state 15
+
+    declaration                    shift and go to state 17
+    api_declaration                shift and go to state 8
+    resource_definition            shift and go to state 9
+    header_definition              shift and go to state 10
+    function_definition            shift and go to state 11
+
+state 6
+
+    (3) optional_declarations -> empty_rule .
+
+    RBRACE          reduce using rule 3 (optional_declarations -> empty_rule .)
+
+
+state 7
+
+    (5) declarations -> declaration .
+
+    API             reduce using rule 5 (declarations -> declaration .)
+    RECURSO         reduce using rule 5 (declarations -> declaration .)
+    CABECALHO       reduce using rule 5 (declarations -> declaration .)
+    FUNCAO          reduce using rule 5 (declarations -> declaration .)
+    RBRACE          reduce using rule 5 (declarations -> declaration .)
+
+
+state 8
+
+    (6) declaration -> api_declaration .
+
+    API             reduce using rule 6 (declaration -> api_declaration .)
+    RECURSO         reduce using rule 6 (declaration -> api_declaration .)
+    CABECALHO       reduce using rule 6 (declaration -> api_declaration .)
+    FUNCAO          reduce using rule 6 (declaration -> api_declaration .)
+    RBRACE          reduce using rule 6 (declaration -> api_declaration .)
+
+
+state 9
+
+    (7) declaration -> resource_definition .
+
+    API             reduce using rule 7 (declaration -> resource_definition .)
+    RECURSO         reduce using rule 7 (declaration -> resource_definition .)
+    CABECALHO       reduce using rule 7 (declaration -> resource_definition .)
+    FUNCAO          reduce using rule 7 (declaration -> resource_definition .)
+    RBRACE          reduce using rule 7 (declaration -> resource_definition .)
+
+
+state 10
+
+    (8) declaration -> header_definition .
+
+    API             reduce using rule 8 (declaration -> header_definition .)
+    RECURSO         reduce using rule 8 (declaration -> header_definition .)
+    CABECALHO       reduce using rule 8 (declaration -> header_definition .)
+    FUNCAO          reduce using rule 8 (declaration -> header_definition .)
+    RBRACE          reduce using rule 8 (declaration -> header_definition .)
+
+
+state 11
+
+    (9) declaration -> function_definition .
+
+    API             reduce using rule 9 (declaration -> function_definition .)
+    RECURSO         reduce using rule 9 (declaration -> function_definition .)
+    CABECALHO       reduce using rule 9 (declaration -> function_definition .)
+    FUNCAO          reduce using rule 9 (declaration -> function_definition .)
+    RBRACE          reduce using rule 9 (declaration -> function_definition .)
+
+
+state 12
+
+    (10) api_declaration -> API . IDENTIFIER COLON STRING SEMICOLON
+
+    IDENTIFIER      shift and go to state 18
+
+
+state 13
+
+    (11) resource_definition -> RECURSO . STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    STRING          shift and go to state 19
+
+
+state 14
+
+    (35) header_definition -> CABECALHO . STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON
+    (36) header_definition -> CABECALHO . STRING COM STRING SEMICOLON
+
+    STRING          shift and go to state 20
+
+
+state 15
+
+    (43) function_definition -> FUNCAO . IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE
+
+    IDENTIFIER      shift and go to state 21
+
+
+state 16
+
+    (1) api_map_definition -> MAPA_API LBRACE optional_declarations RBRACE .
+
+    $end            reduce using rule 1 (api_map_definition -> MAPA_API LBRACE optional_declarations RBRACE .)
+
+
+state 17
+
+    (4) declarations -> declarations declaration .
+
+    API             reduce using rule 4 (declarations -> declarations declaration .)
+    RECURSO         reduce using rule 4 (declarations -> declarations declaration .)
+    CABECALHO       reduce using rule 4 (declarations -> declarations declaration .)
+    FUNCAO          reduce using rule 4 (declarations -> declarations declaration .)
+    RBRACE          reduce using rule 4 (declarations -> declarations declaration .)
+
+
+state 18
+
+    (10) api_declaration -> API IDENTIFIER . COLON STRING SEMICOLON
+
+    COLON           shift and go to state 22
+
+
+state 19
+
+    (11) resource_definition -> RECURSO STRING . DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    DE              shift and go to state 23
+
+
+state 20
+
+    (35) header_definition -> CABECALHO STRING . DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON
+    (36) header_definition -> CABECALHO STRING . COM STRING SEMICOLON
+
+    DE              shift and go to state 24
+    COM             shift and go to state 25
+
+
+state 21
+
+    (43) function_definition -> FUNCAO IDENTIFIER . LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE
+
+    LPAREN          shift and go to state 26
+
+
+state 22
+
+    (10) api_declaration -> API IDENTIFIER COLON . STRING SEMICOLON
+
+    STRING          shift and go to state 27
+
+
+state 23
+
+    (11) resource_definition -> RECURSO STRING DE . IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    IDENTIFIER      shift and go to state 28
+
+
+state 24
+
+    (35) header_definition -> CABECALHO STRING DE . IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON
+
+    IDENTIFIER      shift and go to state 29
+
+
+state 25
+
+    (36) header_definition -> CABECALHO STRING COM . STRING SEMICOLON
+
+    STRING          shift and go to state 30
+
+
+state 26
+
+    (43) function_definition -> FUNCAO IDENTIFIER LPAREN . optional_function_params RPAREN LBRACE function_body_placeholder RBRACE
+    (41) optional_function_params -> . function_param_list
+    (42) optional_function_params -> . empty_rule
+    (39) function_param_list -> . function_param_list COMMA function_param_identifier
+    (40) function_param_list -> . function_param_identifier
+    (45) empty_rule -> .
+    (37) function_param_identifier -> . IDENTIFIER
+    (38) function_param_identifier -> . VALOR
+
+    RPAREN          reduce using rule 45 (empty_rule -> .)
+    IDENTIFIER      shift and go to state 31
+    VALOR           shift and go to state 36
+
+    optional_function_params       shift and go to state 32
+    function_param_list            shift and go to state 33
+    empty_rule                     shift and go to state 34
+    function_param_identifier      shift and go to state 35
+
+state 27
+
+    (10) api_declaration -> API IDENTIFIER COLON STRING . SEMICOLON
+
+    SEMICOLON       shift and go to state 37
+
+
+state 28
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER . PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    PARA            shift and go to state 38
+
+
+state 29
+
+    (35) header_definition -> CABECALHO STRING DE IDENTIFIER . PARA STRING EM IDENTIFIER SEMICOLON
+
+    PARA            shift and go to state 39
+
+
+state 30
+
+    (36) header_definition -> CABECALHO STRING COM STRING . SEMICOLON
+
+    SEMICOLON       shift and go to state 40
+
+
+state 31
+
+    (37) function_param_identifier -> IDENTIFIER .
+
+    COMMA           reduce using rule 37 (function_param_identifier -> IDENTIFIER .)
+    RPAREN          reduce using rule 37 (function_param_identifier -> IDENTIFIER .)
+
+
+state 32
+
+    (43) function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params . RPAREN LBRACE function_body_placeholder RBRACE
+
+    RPAREN          shift and go to state 41
+
+
+state 33
+
+    (41) optional_function_params -> function_param_list .
+    (39) function_param_list -> function_param_list . COMMA function_param_identifier
+
+    RPAREN          reduce using rule 41 (optional_function_params -> function_param_list .)
+    COMMA           shift and go to state 42
+
+
+state 34
+
+    (42) optional_function_params -> empty_rule .
+
+    RPAREN          reduce using rule 42 (optional_function_params -> empty_rule .)
+
+
+state 35
+
+    (40) function_param_list -> function_param_identifier .
+
+    COMMA           reduce using rule 40 (function_param_list -> function_param_identifier .)
+    RPAREN          reduce using rule 40 (function_param_list -> function_param_identifier .)
+
+
+state 36
+
+    (38) function_param_identifier -> VALOR .
+
+    COMMA           reduce using rule 38 (function_param_identifier -> VALOR .)
+    RPAREN          reduce using rule 38 (function_param_identifier -> VALOR .)
+
+
+state 37
+
+    (10) api_declaration -> API IDENTIFIER COLON STRING SEMICOLON .
+
+    API             reduce using rule 10 (api_declaration -> API IDENTIFIER COLON STRING SEMICOLON .)
+    RECURSO         reduce using rule 10 (api_declaration -> API IDENTIFIER COLON STRING SEMICOLON .)
+    CABECALHO       reduce using rule 10 (api_declaration -> API IDENTIFIER COLON STRING SEMICOLON .)
+    FUNCAO          reduce using rule 10 (api_declaration -> API IDENTIFIER COLON STRING SEMICOLON .)
+    RBRACE          reduce using rule 10 (api_declaration -> API IDENTIFIER COLON STRING SEMICOLON .)
+
+
+state 38
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA . STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    STRING          shift and go to state 43
+
+
+state 39
+
+    (35) header_definition -> CABECALHO STRING DE IDENTIFIER PARA . STRING EM IDENTIFIER SEMICOLON
+
+    STRING          shift and go to state 44
+
+
+state 40
+
+    (36) header_definition -> CABECALHO STRING COM STRING SEMICOLON .
+
+    API             reduce using rule 36 (header_definition -> CABECALHO STRING COM STRING SEMICOLON .)
+    RECURSO         reduce using rule 36 (header_definition -> CABECALHO STRING COM STRING SEMICOLON .)
+    CABECALHO       reduce using rule 36 (header_definition -> CABECALHO STRING COM STRING SEMICOLON .)
+    FUNCAO          reduce using rule 36 (header_definition -> CABECALHO STRING COM STRING SEMICOLON .)
+    RBRACE          reduce using rule 36 (header_definition -> CABECALHO STRING COM STRING SEMICOLON .)
+
+
+state 41
+
+    (43) function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN . LBRACE function_body_placeholder RBRACE
+
+    LBRACE          shift and go to state 45
+
+
+state 42
+
+    (39) function_param_list -> function_param_list COMMA . function_param_identifier
+    (37) function_param_identifier -> . IDENTIFIER
+    (38) function_param_identifier -> . VALOR
+
+    IDENTIFIER      shift and go to state 31
+    VALOR           shift and go to state 36
+
+    function_param_identifier      shift and go to state 46
+
+state 43
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING . EM IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    EM              shift and go to state 47
+
+
+state 44
+
+    (35) header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING . EM IDENTIFIER SEMICOLON
+
+    EM              shift and go to state 48
+
+
+state 45
+
+    (43) function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE . function_body_placeholder RBRACE
+    (44) function_body_placeholder -> . empty_rule
+    (45) empty_rule -> .
+
+    RBRACE          reduce using rule 45 (empty_rule -> .)
+
+    function_body_placeholder      shift and go to state 49
+    empty_rule                     shift and go to state 50
+
+state 46
+
+    (39) function_param_list -> function_param_list COMMA function_param_identifier .
+
+    COMMA           reduce using rule 39 (function_param_list -> function_param_list COMMA function_param_identifier .)
+    RPAREN          reduce using rule 39 (function_param_list -> function_param_list COMMA function_param_identifier .)
+
+
+state 47
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM . IDENTIFIER LBRACE optional_resource_body RBRACE
+
+    IDENTIFIER      shift and go to state 51
+
+
+state 48
+
+    (35) header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM . IDENTIFIER SEMICOLON
+
+    IDENTIFIER      shift and go to state 52
+
+
+state 49
+
+    (43) function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder . RBRACE
+
+    RBRACE          shift and go to state 53
+
+
+state 50
+
+    (44) function_body_placeholder -> empty_rule .
+
+    RBRACE          reduce using rule 44 (function_body_placeholder -> empty_rule .)
+
+
+state 51
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER . LBRACE optional_resource_body RBRACE
+
+    LBRACE          shift and go to state 54
+
+
+state 52
+
+    (35) header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER . SEMICOLON
+
+    SEMICOLON       shift and go to state 55
+
+
+state 53
+
+    (43) function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE .
+
+    API             reduce using rule 43 (function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE .)
+    RECURSO         reduce using rule 43 (function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE .)
+    CABECALHO       reduce using rule 43 (function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE .)
+    FUNCAO          reduce using rule 43 (function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE .)
+    RBRACE          reduce using rule 43 (function_definition -> FUNCAO IDENTIFIER LPAREN optional_function_params RPAREN LBRACE function_body_placeholder RBRACE .)
+
+
+state 54
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE . optional_resource_body RBRACE
+    (12) optional_resource_body -> . resource_body
+    (13) optional_resource_body -> . empty_rule
+    (14) resource_body -> . resource_body resource_statement
+    (15) resource_body -> . resource_statement
+    (45) empty_rule -> .
+    (16) resource_statement -> . method_definition
+    (17) resource_statement -> . parameter_definition
+    (18) resource_statement -> . field_definition
+    (19) resource_statement -> . transformation_definition
+    (20) method_definition -> . METODO IDENTIFIER PARA IDENTIFIER SEMICOLON
+    (21) parameter_definition -> . PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+    (22) parameter_definition -> . PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON
+    (25) field_definition -> . CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+    (30) transformation_definition -> . TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON
+
+    RBRACE          reduce using rule 45 (empty_rule -> .)
+    METODO          shift and go to state 64
+    PARAMETRO       shift and go to state 65
+    CAMPO           shift and go to state 66
+    TRANSFORMAR     shift and go to state 67
+
+    optional_resource_body         shift and go to state 56
+    resource_body                  shift and go to state 57
+    empty_rule                     shift and go to state 58
+    resource_statement             shift and go to state 59
+    method_definition              shift and go to state 60
+    parameter_definition           shift and go to state 61
+    field_definition               shift and go to state 62
+    transformation_definition      shift and go to state 63
+
+state 55
+
+    (35) header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON .
+
+    API             reduce using rule 35 (header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON .)
+    RECURSO         reduce using rule 35 (header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON .)
+    CABECALHO       reduce using rule 35 (header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON .)
+    FUNCAO          reduce using rule 35 (header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON .)
+    RBRACE          reduce using rule 35 (header_definition -> CABECALHO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER SEMICOLON .)
+
+
+state 56
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body . RBRACE
+
+    RBRACE          shift and go to state 68
+
+
+state 57
+
+    (12) optional_resource_body -> resource_body .
+    (14) resource_body -> resource_body . resource_statement
+    (16) resource_statement -> . method_definition
+    (17) resource_statement -> . parameter_definition
+    (18) resource_statement -> . field_definition
+    (19) resource_statement -> . transformation_definition
+    (20) method_definition -> . METODO IDENTIFIER PARA IDENTIFIER SEMICOLON
+    (21) parameter_definition -> . PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+    (22) parameter_definition -> . PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON
+    (25) field_definition -> . CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+    (30) transformation_definition -> . TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON
+
+    RBRACE          reduce using rule 12 (optional_resource_body -> resource_body .)
+    METODO          shift and go to state 64
+    PARAMETRO       shift and go to state 65
+    CAMPO           shift and go to state 66
+    TRANSFORMAR     shift and go to state 67
+
+    resource_statement             shift and go to state 69
+    method_definition              shift and go to state 60
+    parameter_definition           shift and go to state 61
+    field_definition               shift and go to state 62
+    transformation_definition      shift and go to state 63
+
+state 58
+
+    (13) optional_resource_body -> empty_rule .
+
+    RBRACE          reduce using rule 13 (optional_resource_body -> empty_rule .)
+
+
+state 59
+
+    (15) resource_body -> resource_statement .
+
+    METODO          reduce using rule 15 (resource_body -> resource_statement .)
+    PARAMETRO       reduce using rule 15 (resource_body -> resource_statement .)
+    CAMPO           reduce using rule 15 (resource_body -> resource_statement .)
+    TRANSFORMAR     reduce using rule 15 (resource_body -> resource_statement .)
+    RBRACE          reduce using rule 15 (resource_body -> resource_statement .)
+
+
+state 60
+
+    (16) resource_statement -> method_definition .
+
+    METODO          reduce using rule 16 (resource_statement -> method_definition .)
+    PARAMETRO       reduce using rule 16 (resource_statement -> method_definition .)
+    CAMPO           reduce using rule 16 (resource_statement -> method_definition .)
+    TRANSFORMAR     reduce using rule 16 (resource_statement -> method_definition .)
+    RBRACE          reduce using rule 16 (resource_statement -> method_definition .)
+
+
+state 61
+
+    (17) resource_statement -> parameter_definition .
+
+    METODO          reduce using rule 17 (resource_statement -> parameter_definition .)
+    PARAMETRO       reduce using rule 17 (resource_statement -> parameter_definition .)
+    CAMPO           reduce using rule 17 (resource_statement -> parameter_definition .)
+    TRANSFORMAR     reduce using rule 17 (resource_statement -> parameter_definition .)
+    RBRACE          reduce using rule 17 (resource_statement -> parameter_definition .)
+
+
+state 62
+
+    (18) resource_statement -> field_definition .
+
+    METODO          reduce using rule 18 (resource_statement -> field_definition .)
+    PARAMETRO       reduce using rule 18 (resource_statement -> field_definition .)
+    CAMPO           reduce using rule 18 (resource_statement -> field_definition .)
+    TRANSFORMAR     reduce using rule 18 (resource_statement -> field_definition .)
+    RBRACE          reduce using rule 18 (resource_statement -> field_definition .)
+
+
+state 63
+
+    (19) resource_statement -> transformation_definition .
+
+    METODO          reduce using rule 19 (resource_statement -> transformation_definition .)
+    PARAMETRO       reduce using rule 19 (resource_statement -> transformation_definition .)
+    CAMPO           reduce using rule 19 (resource_statement -> transformation_definition .)
+    TRANSFORMAR     reduce using rule 19 (resource_statement -> transformation_definition .)
+    RBRACE          reduce using rule 19 (resource_statement -> transformation_definition .)
+
+
+state 64
+
+    (20) method_definition -> METODO . IDENTIFIER PARA IDENTIFIER SEMICOLON
+
+    IDENTIFIER      shift and go to state 70
+
+
+state 65
+
+    (21) parameter_definition -> PARAMETRO . STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+    (22) parameter_definition -> PARAMETRO . STRING DE IDENTIFIER optional_parameter_converter SEMICOLON
+
+    STRING          shift and go to state 71
+
+
+state 66
+
+    (25) field_definition -> CAMPO . STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+
+    STRING          shift and go to state 72
+
+
+state 67
+
+    (30) transformation_definition -> TRANSFORMAR . VALOR source_condition PARA target_assignment SEMICOLON
+
+    VALOR           shift and go to state 73
+
+
+state 68
+
+    (11) resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE .
+
+    API             reduce using rule 11 (resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE .)
+    RECURSO         reduce using rule 11 (resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE .)
+    CABECALHO       reduce using rule 11 (resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE .)
+    FUNCAO          reduce using rule 11 (resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE .)
+    RBRACE          reduce using rule 11 (resource_definition -> RECURSO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER LBRACE optional_resource_body RBRACE .)
+
+
+state 69
+
+    (14) resource_body -> resource_body resource_statement .
+
+    METODO          reduce using rule 14 (resource_body -> resource_body resource_statement .)
+    PARAMETRO       reduce using rule 14 (resource_body -> resource_body resource_statement .)
+    CAMPO           reduce using rule 14 (resource_body -> resource_body resource_statement .)
+    TRANSFORMAR     reduce using rule 14 (resource_body -> resource_body resource_statement .)
+    RBRACE          reduce using rule 14 (resource_body -> resource_body resource_statement .)
+
+
+state 70
+
+    (20) method_definition -> METODO IDENTIFIER . PARA IDENTIFIER SEMICOLON
+
+    PARA            shift and go to state 74
+
+
+state 71
+
+    (21) parameter_definition -> PARAMETRO STRING . DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+    (22) parameter_definition -> PARAMETRO STRING . DE IDENTIFIER optional_parameter_converter SEMICOLON
+
+    DE              shift and go to state 75
+
+
+state 72
+
+    (25) field_definition -> CAMPO STRING . DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+
+    DE              shift and go to state 76
+
+
+state 73
+
+    (30) transformation_definition -> TRANSFORMAR VALOR . source_condition PARA target_assignment SEMICOLON
+    (33) source_condition -> . IDENTIFIER DOT field_path_segments OPERATOR_EQ STRING
+
+    IDENTIFIER      shift and go to state 78
+
+    source_condition               shift and go to state 77
+
+state 74
+
+    (20) method_definition -> METODO IDENTIFIER PARA . IDENTIFIER SEMICOLON
+
+    IDENTIFIER      shift and go to state 79
+
+
+state 75
+
+    (21) parameter_definition -> PARAMETRO STRING DE . IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+    (22) parameter_definition -> PARAMETRO STRING DE . IDENTIFIER optional_parameter_converter SEMICOLON
+
+    IDENTIFIER      shift and go to state 80
+
+
+state 76
+
+    (25) field_definition -> CAMPO STRING DE . IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+
+    IDENTIFIER      shift and go to state 81
+
+
+state 77
+
+    (30) transformation_definition -> TRANSFORMAR VALOR source_condition . PARA target_assignment SEMICOLON
+
+    PARA            shift and go to state 82
+
+
+state 78
+
+    (33) source_condition -> IDENTIFIER . DOT field_path_segments OPERATOR_EQ STRING
+
+    DOT             shift and go to state 83
+
+
+state 79
+
+    (20) method_definition -> METODO IDENTIFIER PARA IDENTIFIER . SEMICOLON
+
+    SEMICOLON       shift and go to state 84
+
+
+state 80
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER . PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+    (22) parameter_definition -> PARAMETRO STRING DE IDENTIFIER . optional_parameter_converter SEMICOLON
+    (23) optional_parameter_converter -> . LBRACE CONVERTER COM STRING SEMICOLON RBRACE
+    (24) optional_parameter_converter -> . empty_rule
+    (45) empty_rule -> .
+
+    PARA            shift and go to state 85
+    LBRACE          shift and go to state 87
+    SEMICOLON       reduce using rule 45 (empty_rule -> .)
+
+    optional_parameter_converter   shift and go to state 86
+    empty_rule                     shift and go to state 88
+
+state 81
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER . PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+
+    PARA            shift and go to state 89
+
+
+state 82
+
+    (30) transformation_definition -> TRANSFORMAR VALOR source_condition PARA . target_assignment SEMICOLON
+    (34) target_assignment -> . IDENTIFIER DOT field_path_segments OPERATOR_ASSIGN STRING
+
+    IDENTIFIER      shift and go to state 91
+
+    target_assignment              shift and go to state 90
+
+state 83
+
+    (33) source_condition -> IDENTIFIER DOT . field_path_segments OPERATOR_EQ STRING
+    (31) field_path_segments -> . IDENTIFIER
+    (32) field_path_segments -> . field_path_segments DOT IDENTIFIER
+
+    IDENTIFIER      shift and go to state 92
+
+    field_path_segments            shift and go to state 93
+
+state 84
+
+    (20) method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON .
+
+    METODO          reduce using rule 20 (method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON .)
+    PARAMETRO       reduce using rule 20 (method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON .)
+    CAMPO           reduce using rule 20 (method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON .)
+    TRANSFORMAR     reduce using rule 20 (method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON .)
+    RBRACE          reduce using rule 20 (method_definition -> METODO IDENTIFIER PARA IDENTIFIER SEMICOLON .)
+
+
+state 85
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA . STRING EM IDENTIFIER optional_parameter_converter SEMICOLON
+
+    STRING          shift and go to state 94
+
+
+state 86
+
+    (22) parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter . SEMICOLON
+
+    SEMICOLON       shift and go to state 95
+
+
+state 87
+
+    (23) optional_parameter_converter -> LBRACE . CONVERTER COM STRING SEMICOLON RBRACE
+
+    CONVERTER       shift and go to state 96
+
+
+state 88
+
+    (24) optional_parameter_converter -> empty_rule .
+
+    SEMICOLON       reduce using rule 24 (optional_parameter_converter -> empty_rule .)
+
+
+state 89
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA . STRING EM IDENTIFIER optional_format optional_converter SEMICOLON
+
+    STRING          shift and go to state 97
+
+
+state 90
+
+    (30) transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment . SEMICOLON
+
+    SEMICOLON       shift and go to state 98
+
+
+state 91
+
+    (34) target_assignment -> IDENTIFIER . DOT field_path_segments OPERATOR_ASSIGN STRING
+
+    DOT             shift and go to state 99
+
+
+state 92
+
+    (31) field_path_segments -> IDENTIFIER .
+
+    OPERATOR_EQ     reduce using rule 31 (field_path_segments -> IDENTIFIER .)
+    DOT             reduce using rule 31 (field_path_segments -> IDENTIFIER .)
+    OPERATOR_ASSIGN reduce using rule 31 (field_path_segments -> IDENTIFIER .)
+
+
+state 93
+
+    (33) source_condition -> IDENTIFIER DOT field_path_segments . OPERATOR_EQ STRING
+    (32) field_path_segments -> field_path_segments . DOT IDENTIFIER
+
+    OPERATOR_EQ     shift and go to state 101
+    DOT             shift and go to state 100
+
+
+state 94
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING . EM IDENTIFIER optional_parameter_converter SEMICOLON
+
+    EM              shift and go to state 102
+
+
+state 95
+
+    (22) parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON .
+
+    METODO          reduce using rule 22 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON .)
+    PARAMETRO       reduce using rule 22 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON .)
+    CAMPO           reduce using rule 22 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON .)
+    TRANSFORMAR     reduce using rule 22 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON .)
+    RBRACE          reduce using rule 22 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER optional_parameter_converter SEMICOLON .)
+
+
+state 96
+
+    (23) optional_parameter_converter -> LBRACE CONVERTER . COM STRING SEMICOLON RBRACE
+
+    COM             shift and go to state 103
+
+
+state 97
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING . EM IDENTIFIER optional_format optional_converter SEMICOLON
+
+    EM              shift and go to state 104
+
+
+state 98
+
+    (30) transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON .
+
+    METODO          reduce using rule 30 (transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON .)
+    PARAMETRO       reduce using rule 30 (transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON .)
+    CAMPO           reduce using rule 30 (transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON .)
+    TRANSFORMAR     reduce using rule 30 (transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON .)
+    RBRACE          reduce using rule 30 (transformation_definition -> TRANSFORMAR VALOR source_condition PARA target_assignment SEMICOLON .)
+
+
+state 99
+
+    (34) target_assignment -> IDENTIFIER DOT . field_path_segments OPERATOR_ASSIGN STRING
+    (31) field_path_segments -> . IDENTIFIER
+    (32) field_path_segments -> . field_path_segments DOT IDENTIFIER
+
+    IDENTIFIER      shift and go to state 92
+
+    field_path_segments            shift and go to state 105
+
+state 100
+
+    (32) field_path_segments -> field_path_segments DOT . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 106
+
+
+state 101
+
+    (33) source_condition -> IDENTIFIER DOT field_path_segments OPERATOR_EQ . STRING
+
+    STRING          shift and go to state 107
+
+
+state 102
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM . IDENTIFIER optional_parameter_converter SEMICOLON
+
+    IDENTIFIER      shift and go to state 108
+
+
+state 103
+
+    (23) optional_parameter_converter -> LBRACE CONVERTER COM . STRING SEMICOLON RBRACE
+
+    STRING          shift and go to state 109
+
+
+state 104
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM . IDENTIFIER optional_format optional_converter SEMICOLON
+
+    IDENTIFIER      shift and go to state 110
+
+
+state 105
+
+    (34) target_assignment -> IDENTIFIER DOT field_path_segments . OPERATOR_ASSIGN STRING
+    (32) field_path_segments -> field_path_segments . DOT IDENTIFIER
+
+    OPERATOR_ASSIGN shift and go to state 111
+    DOT             shift and go to state 100
+
+
+state 106
+
+    (32) field_path_segments -> field_path_segments DOT IDENTIFIER .
+
+    OPERATOR_EQ     reduce using rule 32 (field_path_segments -> field_path_segments DOT IDENTIFIER .)
+    DOT             reduce using rule 32 (field_path_segments -> field_path_segments DOT IDENTIFIER .)
+    OPERATOR_ASSIGN reduce using rule 32 (field_path_segments -> field_path_segments DOT IDENTIFIER .)
+
+
+state 107
+
+    (33) source_condition -> IDENTIFIER DOT field_path_segments OPERATOR_EQ STRING .
+
+    PARA            reduce using rule 33 (source_condition -> IDENTIFIER DOT field_path_segments OPERATOR_EQ STRING .)
+
+
+state 108
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER . optional_parameter_converter SEMICOLON
+    (23) optional_parameter_converter -> . LBRACE CONVERTER COM STRING SEMICOLON RBRACE
+    (24) optional_parameter_converter -> . empty_rule
+    (45) empty_rule -> .
+
+    LBRACE          shift and go to state 87
+    SEMICOLON       reduce using rule 45 (empty_rule -> .)
+
+    optional_parameter_converter   shift and go to state 112
+    empty_rule                     shift and go to state 88
+
+state 109
+
+    (23) optional_parameter_converter -> LBRACE CONVERTER COM STRING . SEMICOLON RBRACE
+
+    SEMICOLON       shift and go to state 113
+
+
+state 110
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER . optional_format optional_converter SEMICOLON
+    (26) optional_format -> . FORMATO STRING
+    (27) optional_format -> . empty_rule
+    (45) empty_rule -> .
+
+    FORMATO         shift and go to state 115
+    LBRACE          reduce using rule 45 (empty_rule -> .)
+    SEMICOLON       reduce using rule 45 (empty_rule -> .)
+
+    optional_format                shift and go to state 114
+    empty_rule                     shift and go to state 116
+
+state 111
+
+    (34) target_assignment -> IDENTIFIER DOT field_path_segments OPERATOR_ASSIGN . STRING
+
+    STRING          shift and go to state 117
+
+
+state 112
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter . SEMICOLON
+
+    SEMICOLON       shift and go to state 118
+
+
+state 113
+
+    (23) optional_parameter_converter -> LBRACE CONVERTER COM STRING SEMICOLON . RBRACE
+
+    RBRACE          shift and go to state 119
+
+
+state 114
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format . optional_converter SEMICOLON
+    (28) optional_converter -> . LBRACE CONVERTER COM STRING SEMICOLON RBRACE
+    (29) optional_converter -> . empty_rule
+    (45) empty_rule -> .
+
+    LBRACE          shift and go to state 121
+    SEMICOLON       reduce using rule 45 (empty_rule -> .)
+
+    optional_converter             shift and go to state 120
+    empty_rule                     shift and go to state 122
+
+state 115
+
+    (26) optional_format -> FORMATO . STRING
+
+    STRING          shift and go to state 123
+
+
+state 116
+
+    (27) optional_format -> empty_rule .
+
+    LBRACE          reduce using rule 27 (optional_format -> empty_rule .)
+    SEMICOLON       reduce using rule 27 (optional_format -> empty_rule .)
+
+
+state 117
+
+    (34) target_assignment -> IDENTIFIER DOT field_path_segments OPERATOR_ASSIGN STRING .
+
+    SEMICOLON       reduce using rule 34 (target_assignment -> IDENTIFIER DOT field_path_segments OPERATOR_ASSIGN STRING .)
+
+
+state 118
+
+    (21) parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON .
+
+    METODO          reduce using rule 21 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON .)
+    PARAMETRO       reduce using rule 21 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON .)
+    CAMPO           reduce using rule 21 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON .)
+    TRANSFORMAR     reduce using rule 21 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON .)
+    RBRACE          reduce using rule 21 (parameter_definition -> PARAMETRO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_parameter_converter SEMICOLON .)
+
+
+state 119
+
+    (23) optional_parameter_converter -> LBRACE CONVERTER COM STRING SEMICOLON RBRACE .
+
+    SEMICOLON       reduce using rule 23 (optional_parameter_converter -> LBRACE CONVERTER COM STRING SEMICOLON RBRACE .)
+
+
+state 120
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter . SEMICOLON
+
+    SEMICOLON       shift and go to state 124
+
+
+state 121
+
+    (28) optional_converter -> LBRACE . CONVERTER COM STRING SEMICOLON RBRACE
+
+    CONVERTER       shift and go to state 125
+
+
+state 122
+
+    (29) optional_converter -> empty_rule .
+
+    SEMICOLON       reduce using rule 29 (optional_converter -> empty_rule .)
+
+
+state 123
+
+    (26) optional_format -> FORMATO STRING .
+
+    LBRACE          reduce using rule 26 (optional_format -> FORMATO STRING .)
+    SEMICOLON       reduce using rule 26 (optional_format -> FORMATO STRING .)
+
+
+state 124
+
+    (25) field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON .
+
+    METODO          reduce using rule 25 (field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON .)
+    PARAMETRO       reduce using rule 25 (field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON .)
+    CAMPO           reduce using rule 25 (field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON .)
+    TRANSFORMAR     reduce using rule 25 (field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON .)
+    RBRACE          reduce using rule 25 (field_definition -> CAMPO STRING DE IDENTIFIER PARA STRING EM IDENTIFIER optional_format optional_converter SEMICOLON .)
+
+
+state 125
+
+    (28) optional_converter -> LBRACE CONVERTER . COM STRING SEMICOLON RBRACE
+
+    COM             shift and go to state 126
+
+
+state 126
+
+    (28) optional_converter -> LBRACE CONVERTER COM . STRING SEMICOLON RBRACE
+
+    STRING          shift and go to state 127
+
+
+state 127
+
+    (28) optional_converter -> LBRACE CONVERTER COM STRING . SEMICOLON RBRACE
+
+    SEMICOLON       shift and go to state 128
+
+
+state 128
+
+    (28) optional_converter -> LBRACE CONVERTER COM STRING SEMICOLON . RBRACE
+
+    RBRACE          shift and go to state 129
+
+
+state 129
+
+    (28) optional_converter -> LBRACE CONVERTER COM STRING SEMICOLON RBRACE .
+
+    SEMICOLON       reduce using rule 28 (optional_converter -> LBRACE CONVERTER COM STRING SEMICOLON RBRACE .)
+
