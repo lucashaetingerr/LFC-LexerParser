@@ -288,7 +288,7 @@ def p_empty_rule(p):
 
 #construindo o analisador sintatico
 #o PLY usa 'parser' como nome padrao para a instancia do yacc se este arquivo é importado.
-#Se voce renomear esta variavel (ex: 'meu_parser'), entao parse_dsl_from_string precisaria usar 'meu_parser.parse()'
+#se renomear essa variavel (ex:'meu_parser'),entao parse_dsl_from_string precisaria usar 'meu_parser.parse()'
 parser=yacc.yacc()
 
 
