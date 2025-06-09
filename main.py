@@ -267,7 +267,7 @@ class AnalisadorDSLAppTk:
         self._gerenciar_visibilidade_resultado(mostrar=False)
 
 
-if __name__ == "__main__":
-    root_window = tk.Tk()
-    app_gui = AnalisadorDSLAppTk(root_window)
+if __name__== "__main__":
+    root_window=tk.Tk()
+    app_gui=AnalisadorDSLAppTk(root_window)
     root_window.mainloop()
